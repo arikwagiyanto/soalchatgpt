@@ -1,0 +1,86 @@
+{% comment %} <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Bootcamp</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" arialabel="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav"> {% endcomment %}
+{% load static %}
+<nav class="navbar navbar-expand-lg " style="background-color: #6DC5D1;">
+    <div class="container-fluid">
+        {% for group in user.groups.all %}
+        
+        {% if group.name == "administrator" %}
+        <a class="navbar-brand" href="#"><img src="{% static 'l.png' %}"> | {{request.user.username|title}}</a>
+        {% endif %}
+        {% if group.name == "panitia" %}
+        <a class="navbar-brand" href="#"><img src="{% static 'l.png' %}"> | {{request.user.username|title}}</a>
+        {% endif %}
+        {% if group.name == "guru" %}
+        <a class="navbar-brand" href="#"><img src="{% static 'l.png' %}"> | <b>{{request.user.username|title}}</b></a>
+        {% endif %}
+        {% endfor %} 
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                {% for group in user.groups.all %}
+        
+                {% if group.name == "administrator" %}
+                <li class="nav-item">
+                    <a class="nav-link {% if menu == 'beranda' %}active{% endif %}" aria-current="page" href="{% url 'beranda' %}">Beranda &ensp;|</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if menu == 'pengguna' %}active{% endif %}" aria-current="page" href="{% url 'pengguna' %}">Data Pengguna &ensp;|</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if menu == 'cekjadwal' %}active{% endif %}" aria-current="page" href="{% url 'cekjadwal' %}">Jadwal &ensp;|</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if menu == 'ceksoal' %}active{% endif %}" aria-current="page" href="{% url 'ceksoal' %}">Soal &ensp;|</a>
+                </li>
+                {% endif %}
+
+                {% if group.name == "panitia" %}
+                <li class="nav-item">
+                    <a class="nav-link {% if menu == 'beranda_panitia' %}active{% endif %}" ariacurrent="page" href="{% url 'beranda_panitia' %}">Beranda  &ensp;|</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if menu == 'kelolajadwal' %}active{% endif %}" href="{% url 'kelolajadwal' %}">Kelola Jadwal &ensp;|</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if menu == 'lihatsoal' %}active{% endif %}" href="{% url 'lihatsoal' %}">Lihat Soal &ensp;|</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if menu == 'cetaksoal' %}active{% endif %}" href="{% url 'cetaksoal' %}">Cetak Soal &ensp;|</a>
+                </li>
+                {% endif %}
+
+                {% if group.name == "guru" %}
+                <li class="nav-item">
+                    <a class="nav-link {% if menu == 'beranda_guru' %}active{% endif %}" ariacurrent="page" href="{% url 'beranda_guru' %}">Beranda &ensp;|</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if menu == 'lihatjadwal' %}active{% endif %}" href="{% url 'lihatjadwal' %}">Jadwal &ensp;|</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if menu == 'buatsoal' %}active{% endif %}" href="{% url 'buatsoal' %}">Buat Soal &ensp;|</a>
+                </li>
+                {% endif %}
+                {% endfor %} 
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logoutPage' %}">Log Out</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-3" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
